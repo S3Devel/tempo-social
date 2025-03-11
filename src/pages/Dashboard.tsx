@@ -9,7 +9,7 @@ import StoryPreview from '@/components/StoryPreview';
 const Dashboard = () => {
   return (
     <div className="min-h-screen bg-white dark:bg-slate-950">
-      <div className="container mx-auto px-4 py-6">
+      <div className="container mx-auto px-4 py-6 pb-20">
         {/* Header */}
         <div className="flex justify-between items-center mb-6">
           <div>
