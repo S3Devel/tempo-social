@@ -209,8 +209,11 @@ const MapComponent = () => {
       pathRef.current.geometry.coordinates = routeCoordinates.current;
     }
 
-    // Update the route source
-    map.current.getSource('route')?.setData(pathRef.current);
+    // Update the route source with typecasting to handle the setData method
+    const source = map.current.getSource('route') as mapboxgl.GeoJSONSource;
+    if (source) {
+      source.setData(pathRef.current);
+    }
   };
 
   // Function to track user's location
