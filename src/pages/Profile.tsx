@@ -1,13 +1,13 @@
 
 import React, { useState } from 'react';
-import { ArrowLeft, Camera, Edit2, Map, Trophy, Users, Dumbbell, Plus } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { Plus } from 'lucide-react';
 import ProfileHeader from '@/components/profile/ProfileHeader';
-import ProfileBio from '@/components/profile/ProfileBio';
-import AchievementsList, { Achievement } from '@/components/profile/AchievementsList';
-import PhotoGrid from '@/components/profile/PhotoGrid';
+import ProfileActions from '@/components/profile/ProfileActions';
+import ProfileContent from '@/components/profile/ProfileContent';
 import AddPostModal from '@/components/profile/AddPostModal';
-import { useNavigate } from 'react-router-dom';
+import AddPostButton from '@/components/profile/AddPostButton';
+import ProfileBottomNav from '@/components/profile/ProfileBottomNav';
+import { Achievement } from '@/components/profile/AchievementsList';
 
 // Dados simulados do usuário
 const userData = {
@@ -64,7 +64,6 @@ const photos = [
 ];
 
 const Profile = () => {
-  const navigate = useNavigate();
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [userProfile, setUserProfile] = useState(userData);
@@ -73,8 +72,7 @@ const Profile = () => {
     setIsEditing(true);
   };
 
-  const handleSaveProfile = (updatedProfile: typeof userData) => {
-    setUserProfile(updatedProfile);
+  const handleSaveProfile = () => {
     setIsEditing(false);
     
     // Em uma aplicação real, aqui enviaríamos os dados para um backend
@@ -85,88 +83,47 @@ const Profile = () => {
     setIsAddModalOpen(true);
   };
 
+  const handleUpdateBio = (bio: string) => {
+    setUserProfile({...userProfile, bio});
+  };
+
+  const handleUpdateLocation = (location: string) => {
+    setUserProfile({...userProfile, location});
+  };
+
+  const handleUpdateUser = (updatedUser: Partial<typeof userData>) => {
+    setUserProfile({...userProfile, ...updatedUser});
+  };
+
   return (
     <div className="min-h-screen bg-white dark:bg-slate-950 pb-20">
       <div className="container mx-auto px-4 py-6">
         {/* Barra de navegação superior */}
-        <div className="flex justify-between items-center mb-4">
-          <button 
-            onClick={() => navigate(-1)} 
-            className="w-10 h-10 rounded-full bg-white dark:bg-slate-800 shadow-sm flex items-center justify-center"
-          >
-            <ArrowLeft size={20} />
-          </button>
-          
-          {isEditing ? (
-            <Button 
-              onClick={() => handleSaveProfile(userProfile)} 
-              className="bg-pace-blue hover:bg-pace-blue/90"
-            >
-              Salvar
-            </Button>
-          ) : (
-            <Button 
-              onClick={handleEditProfile} 
-              variant="outline" 
-              className="border-pace-blue text-pace-blue hover:bg-pace-blue/10"
-            >
-              <Edit2 size={18} className="mr-2" /> Editar Perfil
-            </Button>
-          )}
-        </div>
+        <ProfileActions 
+          isEditing={isEditing} 
+          onEdit={handleEditProfile} 
+          onSave={handleSaveProfile} 
+        />
         
         {/* Cabeçalho do perfil */}
         <ProfileHeader 
           user={userProfile} 
           isEditing={isEditing} 
-          onUpdateUser={(updatedUser) => setUserProfile({...userProfile, ...updatedUser})}
+          onUpdateUser={handleUpdateUser}
         />
         
-        {/* Bio */}
-        <ProfileBio 
-          bio={userProfile.bio}
-          location={userProfile.location}
-          joinedDate={userProfile.joinedDate}
+        {/* Conteúdo principal */}
+        <ProfileContent 
+          userProfile={userProfile}
+          achievements={achievements}
+          photos={photos}
           isEditing={isEditing}
-          onUpdateBio={(newBio) => setUserProfile({...userProfile, bio: newBio})}
-          onUpdateLocation={(newLocation) => setUserProfile({...userProfile, location: newLocation})}
+          onUpdateBio={handleUpdateBio}
+          onUpdateLocation={handleUpdateLocation}
         />
-        
-        {/* Estatísticas do usuário */}
-        <div className="flex justify-around bg-white dark:bg-slate-900/80 rounded-xl shadow-sm p-4 mb-6">
-          <div className="text-center">
-            <div className="text-lg font-bold">{userProfile.stats.following}</div>
-            <div className="text-sm text-slate-500">Seguindo</div>
-          </div>
-          <div className="text-center">
-            <div className="text-lg font-bold">{userProfile.stats.followers}</div>
-            <div className="text-sm text-slate-500">Seguidores</div>
-          </div>
-          <div className="text-center">
-            <div className="text-lg font-bold">{userProfile.stats.runs}</div>
-            <div className="text-sm text-slate-500">Corridas</div>
-          </div>
-        </div>
-        
-        {/* Conquistas */}
-        <div className="mb-8">
-          <h2 className="text-lg font-semibold mb-3">Conquistas</h2>
-          <AchievementsList achievements={achievements} />
-        </div>
-        
-        {/* Fotos */}
-        <div className="mb-8">
-          <h2 className="text-lg font-semibold mb-3">Fotos de Corridas</h2>
-          <PhotoGrid photos={photos} />
-        </div>
         
         {/* Botão flutuante para adicionar post */}
-        <button 
-          onClick={handleAddPost}
-          className="fixed bottom-20 right-4 w-14 h-14 rounded-full bg-pace-blue text-white flex items-center justify-center shadow-lg"
-        >
-          <Plus size={24} />
-        </button>
+        <AddPostButton onClick={handleAddPost} />
         
         {/* Modal para adicionar post */}
         <AddPostModal 
@@ -175,24 +132,7 @@ const Profile = () => {
         />
         
         {/* Bottom Navigation */}
-        <div className="fixed bottom-0 left-0 right-0 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 px-4 py-3 flex justify-between">
-          <a href="/dashboard" className="flex flex-col items-center text-slate-500">
-            <Map size={24} />
-            <span className="text-xs mt-1">Correr</span>
-          </a>
-          <a href="/challenges" className="flex flex-col items-center text-slate-500">
-            <Trophy size={24} />
-            <span className="text-xs mt-1">Desafios</span>
-          </a>
-          <a href="/community" className="flex flex-col items-center text-slate-500">
-            <Users size={24} />
-            <span className="text-xs mt-1">Comunidade</span>
-          </a>
-          <a href="/training" className="flex flex-col items-center text-slate-500">
-            <Dumbbell size={24} />
-            <span className="text-xs mt-1">Treinos</span>
-          </a>
-        </div>
+        <ProfileBottomNav />
       </div>
     </div>
   );
