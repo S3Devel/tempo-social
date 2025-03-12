@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { Dumbbell, Map, Trophy, Users } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import RunTracker from '@/components/RunTracker';
 import DashboardStats from '@/components/DashboardStats';
 import ChallengesList from '@/components/ChallengesList';
@@ -16,11 +17,13 @@ const Dashboard = () => {
             <h1 className="text-2xl font-bold">Olá, Corredor!</h1>
             <p className="text-slate-500 dark:text-slate-400">Pronto para correr hoje?</p>
           </div>
-          <div className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center">
-            <div className="w-8 h-8 rounded-full bg-pace-blue/20 flex items-center justify-center text-pace-blue">
-              👤
+          <Link to="/profile">
+            <div className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center">
+              <div className="w-8 h-8 rounded-full bg-pace-blue/20 flex items-center justify-center text-pace-blue">
+                👤
+              </div>
             </div>
-          </div>
+          </Link>
         </div>
         
         {/* Stories */}
