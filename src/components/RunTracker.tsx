@@ -1,7 +1,8 @@
 
 import React, { useState, useEffect } from 'react';
-import { Play, Pause, Clock, ArrowUp, TrendingUp } from 'lucide-react';
+import { Clock, ArrowUp, TrendingUp } from 'lucide-react';
 import MapComponent from './MapComponent';
+import { Button } from './ui/button';
 
 const RunTracker = () => {
   const [isRunning, setIsRunning] = useState(false);
