@@ -1,7 +1,7 @@
 
 import React from 'react';
 
-type Achievement = {
+export type Achievement = {
   id: number;
   type: 'medal' | 'distance' | 'streak';
   title: string;

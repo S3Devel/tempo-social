@@ -9,6 +9,8 @@ import Community from "./pages/Community";
 import Challenges from "./pages/Challenges";
 import Training from "./pages/Training";
 import Profile from "./pages/Profile";
+import UserSearch from "./pages/UserSearch";
+import Rankings from "./pages/Rankings";
 import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
 
@@ -28,6 +30,8 @@ const App = () => (
           <Route path="/challenges" element={<Challenges />} />
           <Route path="/training" element={<Training />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/search" element={<UserSearch />} />
+          <Route path="/rankings" element={<Rankings />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

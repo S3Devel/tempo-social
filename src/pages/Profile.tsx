@@ -4,7 +4,7 @@ import { ArrowLeft, Camera, Edit2, Map, Trophy, Users, Dumbbell, Plus } from 'lu
 import { Button } from '@/components/ui/button';
 import ProfileHeader from '@/components/profile/ProfileHeader';
 import ProfileBio from '@/components/profile/ProfileBio';
-import AchievementsList from '@/components/profile/AchievementsList';
+import AchievementsList, { Achievement } from '@/components/profile/AchievementsList';
 import PhotoGrid from '@/components/profile/PhotoGrid';
 import AddPostModal from '@/components/profile/AddPostModal';
 import { useNavigate } from 'react-router-dom';
@@ -26,7 +26,7 @@ const userData = {
 };
 
 // Dados simulados de conquistas
-const achievements = [
+const achievements: Achievement[] = [
   {
     id: 1,
     type: 'medal',
