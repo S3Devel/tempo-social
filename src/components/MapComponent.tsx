@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef, useState } from 'react';
 import mapboxgl from 'mapbox-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
@@ -25,8 +24,6 @@ const dummyRunners: Runner[] = [
 const MapComponent = () => {
   const mapContainer = useRef<HTMLDivElement>(null);
   const map = useRef<mapboxgl.Map | null>(null);
-  const [apiKeyInput, setApiKeyInput] = useState('');
-  const [apiKey, setApiKey] = useState('');
   const [isTracking, setIsTracking] = useState(false);
   const [currentPosition, setCurrentPosition] = useState<[number, number] | null>(null);
   const userMarkerRef = useRef<mapboxgl.Marker | null>(null);
@@ -34,12 +31,15 @@ const MapComponent = () => {
   const otherRunnerMarkersRef = useRef<{[key: string]: mapboxgl.Marker}>({});
   const routeCoordinates = useRef<Array<[number, number]>>([]);
   const { toast } = useToast();
+  
+  // Use the provided Mapbox API key
+  const mapboxApiKey = 'pk.eyJ1IjoicGFjZXJ1bmJyIiwiYSI6ImNtN2JjM2hlMjA1YWUya29kNHB4amppMTYifQ.o-rD1jVDIn1pPUnkNwUZjQ';
 
-  // Function to initialize the map once we have an API key
+  // Function to initialize the map with the API key
   useEffect(() => {
-    if (!apiKey || !mapContainer.current) return;
+    if (!mapContainer.current) return;
 
-    mapboxgl.accessToken = apiKey;
+    mapboxgl.accessToken = mapboxApiKey;
     
     try {
       map.current = new mapboxgl.Map({
@@ -138,10 +138,10 @@ const MapComponent = () => {
       toast({
         variant: "destructive",
         title: "Erro ao inicializar mapa",
-        description: "Verifique se a chave de API do Mapbox está correta.",
+        description: "Ocorreu um erro ao inicializar o mapa.",
       });
     }
-  }, [apiKey, toast]);
+  }, [toast]);
 
   // Function to add the user marker
   const addUserMarker = (position: [number, number]) => {
@@ -286,43 +286,6 @@ const MapComponent = () => {
       startTracking();
     }
   };
-
-  // Handle API key submission
-  const handleApiKeySubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (apiKeyInput.trim()) {
-      setApiKey(apiKeyInput.trim());
-    }
-  };
-
-  if (!apiKey) {
-    return (
-      <div className="bg-white dark:bg-slate-900/80 rounded-2xl shadow-card p-6">
-        <h2 className="text-xl font-bold mb-4">Configuração do Mapa</h2>
-        <p className="mb-4 text-slate-600 dark:text-slate-400">
-          Para utilizar o mapa, você precisa fornecer uma chave de API do Mapbox. 
-          Visite <a href="https://mapbox.com/" className="text-pace-blue underline" target="_blank" rel="noopener noreferrer">mapbox.com</a> e 
-          obtenha sua chave pública na seção Tokens do dashboard.
-        </p>
-        <form onSubmit={handleApiKeySubmit} className="space-y-4">
-          <div>
-            <label htmlFor="api-key" className="block text-sm font-medium mb-1">
-              Chave de API do Mapbox
-            </label>
-            <input
-              id="api-key"
-              type="text"
-              value={apiKeyInput}
-              onChange={(e) => setApiKeyInput(e.target.value)}
-              className="w-full p-2 border border-slate-300 dark:border-slate-700 rounded-md"
-              placeholder="pk.eyJ1Ijoi..."
-            />
-          </div>
-          <Button type="submit" className="w-full">Confirmar</Button>
-        </form>
-      </div>
-    );
-  }
 
   return (
     <div className="relative h-[60vh] md:h-[70vh] w-full bg-white dark:bg-slate-950 rounded-2xl shadow-card overflow-hidden">
