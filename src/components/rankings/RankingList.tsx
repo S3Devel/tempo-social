@@ -1,52 +1,41 @@
 
 import React from 'react';
 import { Trophy } from 'lucide-react';
-import { User } from '../search/UserCard';
-import { Button } from '@/components/ui/button';
+import { User } from '@/types/User';
 
 type RankingListProps = {
   users: User[];
-  onFollow: (userId: number) => void;
 };
 
-const RankingList = ({ users, onFollow }: RankingListProps) => {
-  const getMedalColor = (position: number) => {
-    switch (position) {
-      case 1:
-        return 'text-amber-500';
-      case 2:
-        return 'text-slate-400';
-      case 3:
-        return 'text-amber-700';
-      default:
-        return 'text-slate-500';
-    }
-  };
-
+const RankingList = ({ users }: RankingListProps) => {
   return (
-    <div className="space-y-3">
+    <div className="space-y-4">
       {users.map((user, index) => (
-        <div key={user.id} className="bg-white dark:bg-slate-900/80 rounded-xl shadow-sm p-4 flex items-center space-x-4">
-          <div className={`w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center font-semibold ${getMedalColor(index + 1)}`}>
-            {index < 3 ? <Trophy size={16} /> : index + 1}
-          </div>
-          
-          <div className="w-10 h-10 rounded-full bg-slate-200 dark:bg-slate-700 flex items-center justify-center text-xl overflow-hidden">
-            {user.avatar.startsWith('http') ? (
-              <img src={user.avatar} alt={user.name} className="w-full h-full object-cover" />
+        <div key={user.id} className="flex items-center bg-white dark:bg-slate-900/80 p-4 rounded-xl shadow-sm">
+          {/* Posição */}
+          <div className="w-10 h-10 rounded-full bg-amber-100 dark:bg-amber-900/30 flex items-center justify-center mr-4">
+            {index < 3 ? (
+              <Trophy className={`${index === 0 ? 'text-amber-500' : index === 1 ? 'text-gray-400' : 'text-amber-800'}`} size={20} />
             ) : (
-              user.avatar
+              <span className="font-bold">{index + 1}</span>
             )}
           </div>
           
-          <div className="flex-1">
-            <h3 className="font-medium text-sm">{user.name}</h3>
-            <p className="text-xs text-slate-500">{user.username}</p>
+          {/* Avatar */}
+          <div className="w-10 h-10 rounded-full bg-slate-200 dark:bg-slate-800 flex items-center justify-center mr-4 text-xl">
+            {user.avatar}
           </div>
           
+          {/* Info */}
+          <div className="flex-1">
+            <div className="font-semibold">{user.name}</div>
+            <div className="text-sm text-slate-500">{user.username}</div>
+          </div>
+          
+          {/* Stats */}
           <div className="text-right">
-            <p className="font-bold text-pace-blue">248 km</p>
-            <p className="text-xs text-slate-500">este mês</p>
+            <div className="font-bold text-pace-blue">{user.stats?.distance} km</div>
+            <div className="text-sm text-slate-500">{user.stats?.runs} corridas</div>
           </div>
         </div>
       ))}
