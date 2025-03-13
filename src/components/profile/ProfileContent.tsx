@@ -39,7 +39,7 @@ const ProfileContent = ({
 }: ProfileContentProps) => {
   return (
     <>
-      {/* Bio */}
+      {/* Bio - moved directly after the header in flow */}
       <ProfileBio 
         bio={userProfile.bio}
         location={userProfile.location}

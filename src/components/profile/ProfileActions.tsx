@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { ArrowLeft, Edit2 } from 'lucide-react';
+import { ArrowLeft, Edit2, Save } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
 
@@ -25,17 +25,17 @@ const ProfileActions = ({ isEditing, onEdit, onSave }: ProfileActionsProps) => {
       {isEditing ? (
         <Button 
           onClick={onSave} 
-          className="bg-pace-blue hover:bg-pace-blue/90"
+          className="bg-pace-blue hover:bg-pace-blue/90 flex items-center gap-2"
         >
-          Salvar
+          <Save size={18} /> Salvar
         </Button>
       ) : (
         <Button 
           onClick={onEdit} 
           variant="outline" 
-          className="border-pace-blue text-pace-blue hover:bg-pace-blue/10"
+          className="border-pace-blue text-pace-blue hover:bg-pace-blue/10 flex items-center gap-2"
         >
-          <Edit2 size={18} className="mr-2" /> Editar Perfil
+          <Edit2 size={18} /> Editar Perfil
         </Button>
       )}
     </div>

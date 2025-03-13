@@ -18,7 +18,7 @@ const ProfileHeader = ({ user, isEditing, onUpdateUser }: ProfileHeaderProps) =>
   return (
     <div className="mb-6 relative">
       {/* Capa do perfil */}
-      <div className={`${user.coverGradient} h-40 rounded-xl mb-14 relative overflow-hidden`}>
+      <div className={`${user.coverGradient} h-40 rounded-xl mb-6 relative overflow-hidden`}>
         {isEditing && (
           <button className="absolute right-3 bottom-3 bg-white/80 dark:bg-slate-800/80 p-2 rounded-full">
             <Camera size={20} />
@@ -26,9 +26,9 @@ const ProfileHeader = ({ user, isEditing, onUpdateUser }: ProfileHeaderProps) =>
         )}
       </div>
       
-      {/* Avatar */}
-      <div className="absolute left-1/2 transform -translate-x-1/2 -bottom-10">
-        <div className="w-24 h-24 rounded-full bg-white dark:bg-slate-800 flex items-center justify-center text-4xl relative">
+      {/* Avatar - Agora centralizado e acima da biografia */}
+      <div className="flex flex-col items-center mb-4">
+        <div className="w-24 h-24 rounded-full bg-white dark:bg-slate-800 flex items-center justify-center text-4xl relative mb-3">
           {user.avatar}
           {isEditing && (
             <button className="absolute right-0 bottom-0 bg-pace-blue p-2 rounded-full shadow-md">
@@ -36,12 +36,10 @@ const ProfileHeader = ({ user, isEditing, onUpdateUser }: ProfileHeaderProps) =>
             </button>
           )}
         </div>
-      </div>
-      
-      {/* Nome e username */}
-      <div className="pt-12 text-center">
+        
+        {/* Nome e username */}
         {isEditing ? (
-          <div className="space-y-2">
+          <div className="space-y-2 w-full max-w-xs">
             <Input
               value={user.name}
               onChange={(e) => onUpdateUser({ name: e.target.value })}

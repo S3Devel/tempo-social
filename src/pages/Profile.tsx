@@ -8,6 +8,7 @@ import AddPostModal from '@/components/profile/AddPostModal';
 import AddPostButton from '@/components/profile/AddPostButton';
 import ProfileBottomNav from '@/components/profile/ProfileBottomNav';
 import { Achievement } from '@/components/profile/AchievementsList';
+import { useToast } from '@/hooks/use-toast';
 
 // Dados simulados do usuário
 const userData = {
@@ -67,6 +68,7 @@ const Profile = () => {
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [userProfile, setUserProfile] = useState(userData);
+  const { toast } = useToast();
 
   const handleEditProfile = () => {
     setIsEditing(true);
@@ -74,6 +76,11 @@ const Profile = () => {
 
   const handleSaveProfile = () => {
     setIsEditing(false);
+    
+    toast({
+      title: "Perfil atualizado",
+      description: "Suas alterações foram salvas com sucesso!"
+    });
     
     // Em uma aplicação real, aqui enviaríamos os dados para um backend
     // api.updateUserProfile(updatedProfile).then(() => setIsEditing(false));

@@ -22,7 +22,7 @@ const ProfileBio = ({
   onUpdateLocation 
 }: ProfileBioProps) => {
   return (
-    <div className="mb-6 space-y-3">
+    <div className="mb-6 space-y-3 px-4">
       {isEditing ? (
         <Textarea
           value={bio}
@@ -32,10 +32,10 @@ const ProfileBio = ({
           rows={3}
         />
       ) : (
-        <p className="text-sm">{bio}</p>
+        <p className="text-sm text-center">{bio}</p>
       )}
       
-      <div className="flex items-center text-sm text-slate-500">
+      <div className="flex items-center justify-center text-sm text-slate-500">
         <MapPin size={16} className="mr-1" />
         {isEditing ? (
           <Input
@@ -49,7 +49,7 @@ const ProfileBio = ({
         )}
       </div>
       
-      <div className="flex items-center text-sm text-slate-500">
+      <div className="flex items-center justify-center text-sm text-slate-500">
         <Calendar size={16} className="mr-1" />
         <span>{joinedDate}</span>
       </div>
