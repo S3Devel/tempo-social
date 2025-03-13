@@ -5,9 +5,11 @@ import { User } from '@/types/User';
 
 type RankingListProps = {
   users: User[];
+  metric: string;
+  unit: string;
 };
 
-const RankingList = ({ users }: RankingListProps) => {
+const RankingList = ({ users, metric, unit }: RankingListProps) => {
   return (
     <div className="space-y-4">
       {users.map((user, index) => (
@@ -34,7 +36,11 @@ const RankingList = ({ users }: RankingListProps) => {
           
           {/* Stats */}
           <div className="text-right">
-            <div className="font-bold text-pace-blue">{user.stats?.distance} km</div>
+            <div className="font-bold text-pace-blue">
+              {user.stats && metric === 'distance' && `${user.stats.distance} ${unit}`}
+              {user.stats && metric === 'pace' && `${user.stats.pace} ${unit}`}
+              {user.stats && metric === 'runs' && `${user.stats.runs} ${unit}`}
+            </div>
             <div className="text-sm text-slate-500">{user.stats?.runs} corridas</div>
           </div>
         </div>
