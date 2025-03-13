@@ -13,6 +13,7 @@ import UserSearch from "./pages/UserSearch";
 import Rankings from "./pages/Rankings";
 import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
+import Feed from "./pages/Feed";
 
 const queryClient = new QueryClient();
 
@@ -32,6 +33,7 @@ const App = () => (
           <Route path="/profile" element={<Profile />} />
           <Route path="/search" element={<UserSearch />} />
           <Route path="/rankings" element={<Rankings />} />
+          <Route path="/feed" element={<Feed />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
