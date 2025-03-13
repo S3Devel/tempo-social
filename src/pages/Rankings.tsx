@@ -1,236 +1,99 @@
 
 import React, { useState } from 'react';
-import { Crown, MapPin, Users, Flag } from 'lucide-react';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { MapPin, Users, Trophy, Flag } from 'lucide-react';
 import RankingTabs from '@/components/rankings/RankingTabs';
-import RankingList from '@/components/rankings/RankingList';
-import { User } from '@/types/User';
-
-// Dados simulados para os rankings
-const localUsers: User[] = [
-  {
-    id: '1',
-    name: 'Carlos Silva',
-    username: '@carlossilva',
-    avatar: '👨',
-    location: 'São Paulo, SP',
-    stats: {
-      distance: 128.5,
-      pace: 5.2,
-      runs: 24
-    }
-  },
-  {
-    id: '2',
-    name: 'Maria Santos',
-    username: '@mariasantos',
-    avatar: '👩',
-    location: 'São Paulo, SP',
-    stats: {
-      distance: 115.2,
-      pace: 5.5,
-      runs: 20
-    }
-  },
-  {
-    id: '3',
-    name: 'João Oliveira',
-    username: '@joaooliveira',
-    avatar: '👨‍🦱',
-    location: 'São Paulo, SP',
-    stats: {
-      distance: 98.7,
-      pace: 5.8,
-      runs: 18
-    }
-  },
-  {
-    id: '4',
-    name: 'Ana Souza',
-    username: '@anasouza',
-    avatar: '👩‍🦰',
-    location: 'São Paulo, SP',
-    stats: {
-      distance: 87.3,
-      pace: 6.0,
-      runs: 16
-    }
-  },
-  {
-    id: '5',
-    name: 'Pedro Costa',
-    username: '@pedrocosta',
-    avatar: '👱‍♂️',
-    location: 'São Paulo, SP',
-    stats: {
-      distance: 76.8,
-      pace: 6.2,
-      runs: 14
-    }
-  }
-];
-
-const groupUsers: User[] = [
-  {
-    id: '1',
-    name: 'Carlos Silva',
-    username: '@carlossilva',
-    avatar: '👨',
-    location: 'São Paulo, SP',
-    stats: {
-      distance: 128.5,
-      pace: 5.2,
-      runs: 24
-    }
-  },
-  {
-    id: '6',
-    name: 'Fernanda Lima',
-    username: '@fernandalima',
-    avatar: '👩‍🦱',
-    location: 'Rio de Janeiro, RJ',
-    stats: {
-      distance: 110.3,
-      pace: 5.6,
-      runs: 19
-    }
-  },
-  {
-    id: '7',
-    name: 'Ricardo Mendes',
-    username: '@ricardomendes',
-    avatar: '🧔',
-    location: 'Brasília, DF',
-    stats: {
-      distance: 95.1,
-      pace: 5.9,
-      runs: 17
-    }
-  },
-  {
-    id: '8',
-    name: 'Juliana Martins',
-    username: '@julianamartins',
-    avatar: '👱‍♀️',
-    location: 'Curitiba, PR',
-    stats: {
-      distance: 85.7,
-      pace: 6.1,
-      runs: 15
-    }
-  },
-  {
-    id: '9',
-    name: 'Lucas Almeida',
-    username: '@lucasalmeida',
-    avatar: '👨‍🦲',
-    location: 'Belo Horizonte, MG',
-    stats: {
-      distance: 73.4,
-      pace: 6.3,
-      runs: 13
-    }
-  }
-];
-
-const nationalUsers: User[] = [
-  {
-    id: '10',
-    name: 'Gabriel Santos',
-    username: '@gabrielsantos',
-    avatar: '👨‍🦰',
-    location: 'São Paulo, SP',
-    stats: {
-      distance: 152.7,
-      pace: 4.8,
-      runs: 28
-    }
-  },
-  {
-    id: '11',
-    name: 'Camila Costa',
-    username: '@camilacosta',
-    avatar: '👩‍🦱',
-    location: 'Rio de Janeiro, RJ',
-    stats: {
-      distance: 145.2,
-      pace: 5.0,
-      runs: 26
-    }
-  },
-  {
-    id: '12',
-    name: 'Thiago Oliveira',
-    username: '@thiagooliveira',
-    avatar: '🧔‍♂️',
-    location: 'Salvador, BA',
-    stats: {
-      distance: 138.6,
-      pace: 5.1,
-      runs: 25
-    }
-  },
-  {
-    id: '13',
-    name: 'Bianca Silva',
-    username: '@biancasilva',
-    avatar: '👩',
-    location: 'Fortaleza, CE',
-    stats: {
-      distance: 132.1,
-      pace: 5.2,
-      runs: 24
-    }
-  },
-  {
-    id: '14',
-    name: 'Rafael Martins',
-    username: '@rafaelmartins',
-    avatar: '👨',
-    location: 'Porto Alegre, RS',
-    stats: {
-      distance: 128.9,
-      pace: 5.3,
-      runs: 23
-    }
-  }
-];
 
 const Rankings = () => {
-  const [activeTab, setActiveTab] = useState('local');
-
+  const [activeTab, setActiveTab] = useState('distance');
+  
   return (
-    <div className="min-h-screen bg-white dark:bg-slate-950 pb-20">
-      <div className="container mx-auto px-4 py-6">
-        <h1 className="text-2xl font-bold mb-6">Rankings</h1>
-
-        {/* Tabs para os diferentes tipos de ranking */}
-        <RankingTabs activeTab={activeTab} setActiveTab={setActiveTab} />
-
-        {/* Conteúdo das abas */}
-        <TabsContent value="local" className="mt-4">
-          <div className="flex items-center mb-4 text-slate-600">
-            <MapPin size={20} className="mr-2" />
-            <span>São Paulo, SP</span>
+    <div className="min-h-screen bg-white dark:bg-slate-950">
+      <div className="container mx-auto px-4 py-6 pb-20">
+        {/* Header */}
+        <div className="flex justify-between items-center mb-6">
+          <h1 className="text-2xl font-bold">Rankings</h1>
+        </div>
+        
+        {/* Main Content */}
+        <div className="bg-white dark:bg-slate-900/80 rounded-xl shadow-card p-4 mb-6">
+          <h2 className="text-xl font-bold mb-4">Rankings Globais</h2>
+          <RankingTabs activeTab={activeTab} setActiveTab={setActiveTab} />
+        </div>
+        
+        {/* Estatísticas Adicionais ou Filtros */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+          <div className="bg-white dark:bg-slate-900/80 rounded-xl shadow-card p-4">
+            <h3 className="font-semibold mb-2">Filtrar por Região</h3>
+            <div className="flex flex-wrap gap-2">
+              <button className="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-full text-sm">
+                Global
+              </button>
+              <button className="px-3 py-1 bg-pace-blue/10 text-pace-blue rounded-full text-sm">
+                Brasil
+              </button>
+              <button className="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-full text-sm">
+                São Paulo
+              </button>
+              <button className="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-full text-sm">
+                Rio de Janeiro
+              </button>
+            </div>
           </div>
-          <RankingList users={localUsers} />
-        </TabsContent>
-
-        <TabsContent value="group" className="mt-4">
-          <div className="flex items-center mb-4 text-slate-600">
-            <Users size={20} className="mr-2" />
-            <span>Grupo: Corredores de SP</span>
+          
+          <div className="bg-white dark:bg-slate-900/80 rounded-xl shadow-card p-4">
+            <h3 className="font-semibold mb-2">Filtrar por Período</h3>
+            <div className="flex flex-wrap gap-2">
+              <button className="px-3 py-1 bg-pace-blue/10 text-pace-blue rounded-full text-sm">
+                Todos os tempos
+              </button>
+              <button className="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-full text-sm">
+                Este mês
+              </button>
+              <button className="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-full text-sm">
+                Esta semana
+              </button>
+            </div>
           </div>
-          <RankingList users={groupUsers} />
-        </TabsContent>
-
-        <TabsContent value="national" className="mt-4">
-          <div className="flex items-center mb-4 text-slate-600">
-            <Flag size={20} className="mr-2" />
-            <span>Brasil</span>
+        </div>
+        
+        {/* Mais Rankings */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+          <div className="bg-white dark:bg-slate-900/80 rounded-xl shadow-card p-4">
+            <h3 className="font-semibold mb-2">Desafios</h3>
+            <p className="text-sm text-slate-500 mb-3">
+              Ranking dos principais desafios completados
+            </p>
+            <a href="#" className="text-pace-blue text-sm">Ver todos os desafios →</a>
           </div>
-          <RankingList users={nationalUsers} />
-        </TabsContent>
+          
+          <div className="bg-white dark:bg-slate-900/80 rounded-xl shadow-card p-4">
+            <h3 className="font-semibold mb-2">Grupos</h3>
+            <p className="text-sm text-slate-500 mb-3">
+              Ranking dos grupos mais ativos
+            </p>
+            <a href="#" className="text-pace-blue text-sm">Ver todos os grupos →</a>
+          </div>
+        </div>
+        
+        {/* Bottom Navigation */}
+        <div className="fixed bottom-0 left-0 right-0 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 px-4 py-3 flex justify-between">
+          <a href="/dashboard" className="flex flex-col items-center text-slate-500">
+            <MapPin size={24} />
+            <span className="text-xs mt-1">Correr</span>
+          </a>
+          <a href="/challenges" className="flex flex-col items-center text-slate-500">
+            <Trophy size={24} />
+            <span className="text-xs mt-1">Desafios</span>
+          </a>
+          <a href="/community" className="flex flex-col items-center text-slate-500">
+            <Users size={24} />
+            <span className="text-xs mt-1">Comunidade</span>
+          </a>
+          <a href="/rankings" className="flex flex-col items-center text-pace-blue">
+            <Flag size={24} />
+            <span className="text-xs mt-1">Rankings</span>
+          </a>
+        </div>
       </div>
     </div>
   );

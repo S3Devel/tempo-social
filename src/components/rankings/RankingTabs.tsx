@@ -1,35 +1,70 @@
 
 import React from 'react';
-import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import RankingList from './RankingList';
-import { User } from '../search/UserCard';
+import { User } from '@/types/User';
 
-type RankingTabsProps = {
-  localRanking: User[];
-  groupRanking: User[];
-  nationalRanking: User[];
-  onFollow: (userId: number) => void;
-};
+export interface RankingTabsProps {
+  activeTab: string;
+  setActiveTab: React.Dispatch<React.SetStateAction<string>>;
+}
 
-const RankingTabs = ({ localRanking, groupRanking, nationalRanking, onFollow }: RankingTabsProps) => {
+// Dados simulados para rankings (em uma aplicação real, viriam de uma API)
+const distanceRanking: User[] = [
+  { id: '1', name: 'Carlos Silva', username: '@carlossilva', avatar: '🏃', stats: { distance: 120.5, pace: 5.3, runs: 35 } },
+  { id: '2', name: 'Marina Santos', username: '@marinasantos', avatar: '🏃‍♀️', stats: { distance: 115.2, pace: 4.8, runs: 42 } },
+  { id: '3', name: 'Rafael Mendes', username: '@rafamendes', avatar: '🏃‍♂️', stats: { distance: 98.7, pace: 5.0, runs: 28 } },
+  { id: '4', name: 'Juliana Costa', username: '@jucosta', avatar: '🏃‍♀️', stats: { distance: 95.3, pace: 5.5, runs: 30 } },
+  { id: '5', name: 'Fernando Oliveira', username: '@feroliveira', avatar: '🏃‍♂️', stats: { distance: 92.1, pace: 4.9, runs: 25 } },
+];
+
+const paceRanking: User[] = [
+  { id: '1', name: 'Marina Santos', username: '@marinasantos', avatar: '🏃‍♀️', stats: { distance: 115.2, pace: 4.8, runs: 42 } },
+  { id: '2', name: 'Fernando Oliveira', username: '@feroliveira', avatar: '🏃‍♂️', stats: { distance: 92.1, pace: 4.9, runs: 25 } },
+  { id: '3', name: 'Rafael Mendes', username: '@rafamendes', avatar: '🏃‍♂️', stats: { distance: 98.7, pace: 5.0, runs: 28 } },
+  { id: '4', name: 'Carlos Silva', username: '@carlossilva', avatar: '🏃', stats: { distance: 120.5, pace: 5.3, runs: 35 } },
+  { id: '5', name: 'Juliana Costa', username: '@jucosta', avatar: '🏃‍♀️', stats: { distance: 95.3, pace: 5.5, runs: 30 } },
+];
+
+const runsRanking: User[] = [
+  { id: '1', name: 'Marina Santos', username: '@marinasantos', avatar: '🏃‍♀️', stats: { distance: 115.2, pace: 4.8, runs: 42 } },
+  { id: '2', name: 'Carlos Silva', username: '@carlossilva', avatar: '🏃', stats: { distance: 120.5, pace: 5.3, runs: 35 } },
+  { id: '3', name: 'Juliana Costa', username: '@jucosta', avatar: '🏃‍♀️', stats: { distance: 95.3, pace: 5.5, runs: 30 } },
+  { id: '4', name: 'Rafael Mendes', username: '@rafamendes', avatar: '🏃‍♂️', stats: { distance: 98.7, pace: 5.0, runs: 28 } },
+  { id: '5', name: 'Fernando Oliveira', username: '@feroliveira', avatar: '🏃‍♂️', stats: { distance: 92.1, pace: 4.9, runs: 25 } },
+];
+
+const RankingTabs: React.FC<RankingTabsProps> = ({ activeTab, setActiveTab }) => {
   return (
-    <Tabs defaultValue="local">
-      <TabsList className="grid grid-cols-3 mb-4">
-        <TabsTrigger value="local">Local</TabsTrigger>
-        <TabsTrigger value="group">Grupo</TabsTrigger>
-        <TabsTrigger value="national">Nacional</TabsTrigger>
+    <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+      <TabsList className="grid grid-cols-3 mb-6">
+        <TabsTrigger value="distance">Distância</TabsTrigger>
+        <TabsTrigger value="pace">Pace</TabsTrigger>
+        <TabsTrigger value="runs">Corridas</TabsTrigger>
       </TabsList>
       
-      <TabsContent value="local">
-        <RankingList users={localRanking} onFollow={onFollow} />
+      <TabsContent value="distance">
+        <RankingList 
+          users={distanceRanking} 
+          metric="distance" 
+          unit="km" 
+        />
       </TabsContent>
       
-      <TabsContent value="group">
-        <RankingList users={groupRanking} onFollow={onFollow} />
+      <TabsContent value="pace">
+        <RankingList 
+          users={paceRanking} 
+          metric="pace" 
+          unit="min/km" 
+        />
       </TabsContent>
       
-      <TabsContent value="national">
-        <RankingList users={nationalRanking} onFollow={onFollow} />
+      <TabsContent value="runs">
+        <RankingList 
+          users={runsRanking} 
+          metric="runs" 
+          unit="corridas" 
+        />
       </TabsContent>
     </Tabs>
   );
