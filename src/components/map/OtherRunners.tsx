@@ -55,7 +55,7 @@ const OtherRunners = ({ map, runners }: OtherRunnersProps) => {
     });
     
     return {
-      type: 'FeatureCollection',
+      type: "FeatureCollection" as const,
       features: points
     };
   };
