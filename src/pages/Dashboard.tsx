@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Dumbbell, Map, Trophy, Users } from 'lucide-react';
+import { MessageSquare, Map, Trophy, Users } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import RunTracker from '@/components/RunTracker';
 import DashboardStats from '@/components/DashboardStats';
@@ -63,13 +63,13 @@ const Dashboard = () => {
             <Trophy size={24} />
             <span className="text-xs mt-1">Desafios</span>
           </a>
+          <a href="/feed" className="flex flex-col items-center text-slate-500">
+            <MessageSquare size={24} />
+            <span className="text-xs mt-1">Feed</span>
+          </a>
           <a href="/community" className="flex flex-col items-center text-slate-500">
             <Users size={24} />
             <span className="text-xs mt-1">Comunidade</span>
-          </a>
-          <a href="/training" className="flex flex-col items-center text-slate-500">
-            <Dumbbell size={24} />
-            <span className="text-xs mt-1">Treinos</span>
           </a>
         </div>
       </div>

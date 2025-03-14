@@ -23,12 +23,12 @@ const OtherRunners = ({ map, runners }: OtherRunnersProps) => {
 
   // Função para gerar pontos aleatórios ao redor de cada corredor para o mapa de calor
   const generateHeatmapPoints = (runners: Runner[], radius: number = 0.005, pointsPerRunner: number = 10) => {
-    const points: { type: string; properties: {}; geometry: { type: string; coordinates: number[] } }[] = [];
+    const points: { type: "Feature"; properties: {}; geometry: { type: string; coordinates: number[] } }[] = [];
     
     runners.forEach(runner => {
       // Adicionar o ponto central do corredor
       points.push({
-        type: 'Feature',
+        type: "Feature",
         properties: {},
         geometry: {
           type: 'Point',
@@ -44,7 +44,7 @@ const OtherRunners = ({ map, runners }: OtherRunnersProps) => {
         const newLat = runner.latitude + distance * Math.sin(angle);
         
         points.push({
-          type: 'Feature',
+          type: "Feature",
           properties: {},
           geometry: {
             type: 'Point',

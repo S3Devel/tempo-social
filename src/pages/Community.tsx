@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Search, Users, Award, MapPin, Map, Trophy, Dumbbell } from 'lucide-react';
+import { Search, Users, Award, MapPin, Map, Trophy, MessageSquare } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 
@@ -90,13 +90,13 @@ const Community = () => {
             <Trophy size={24} />
             <span className="text-xs mt-1">Desafios</span>
           </a>
+          <a href="/feed" className="flex flex-col items-center text-slate-500">
+            <MessageSquare size={24} />
+            <span className="text-xs mt-1">Feed</span>
+          </a>
           <a href="/community" className="flex flex-col items-center text-pace-blue">
             <Users size={24} />
             <span className="text-xs mt-1">Comunidade</span>
-          </a>
-          <a href="/training" className="flex flex-col items-center text-slate-500">
-            <Dumbbell size={24} />
-            <span className="text-xs mt-1">Treinos</span>
           </a>
         </div>
       </div>
