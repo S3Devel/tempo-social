@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Map, Trophy, Users, Dumbbell, MessageSquare } from 'lucide-react';
+import { Map, Trophy, Users, MessageSquare } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 const ProfileBottomNav = () => {
@@ -23,10 +23,6 @@ const ProfileBottomNav = () => {
       <a href="/community" className="flex flex-col items-center text-slate-500">
         <Users size={24} />
         <span className="text-xs mt-1">Comunidade</span>
-      </a>
-      <a href="/training" className="flex flex-col items-center text-slate-500">
-        <Dumbbell size={24} />
-        <span className="text-xs mt-1">Treinos</span>
       </a>
     </div>
   );

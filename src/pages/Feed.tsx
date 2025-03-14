@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react';
-import { Map, Trophy, Users, Dumbbell } from 'lucide-react';
+import { Map, Trophy, Users, MessageSquare } from 'lucide-react';
 import FeedHeader from '@/components/feed/FeedHeader';
 import PostsList from '@/components/feed/PostsList';
 import AddPostModal from '@/components/profile/AddPostModal';
@@ -101,13 +101,13 @@ const Feed = () => {
             <Trophy size={24} />
             <span className="text-xs mt-1">Desafios</span>
           </a>
-          <a href="/community" className="flex flex-col items-center text-pace-blue">
+          <a href="/feed" className="flex flex-col items-center text-pace-blue">
+            <MessageSquare size={24} />
+            <span className="text-xs mt-1">Feed</span>
+          </a>
+          <a href="/community" className="flex flex-col items-center text-slate-500">
             <Users size={24} />
             <span className="text-xs mt-1">Comunidade</span>
-          </a>
-          <a href="/training" className="flex flex-col items-center text-slate-500">
-            <Dumbbell size={24} />
-            <span className="text-xs mt-1">Treinos</span>
           </a>
         </div>
       </div>
