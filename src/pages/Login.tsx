@@ -6,12 +6,22 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Mail, Lock, LogIn, User } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
+import { 
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 const Login = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
+  const [resetEmail, setResetEmail] = useState('');
+  const [showResetDialog, setShowResetDialog] = useState(false);
   const navigate = useNavigate();
   const { toast } = useToast();
 
@@ -60,6 +70,29 @@ const Login = () => {
     setTimeout(() => {
       navigate('/dashboard');
     }, 1500);
+  };
+
+  const handleResetPassword = (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!resetEmail) {
+      toast({
+        title: "Erro",
+        description: "Por favor, informe seu e-mail para redefinir a senha.",
+        variant: "destructive",
+      });
+      return;
+    }
+    
+    // Mock password reset
+    toast({
+      title: "E-mail enviado",
+      description: "Verifique sua caixa de entrada para redefinir sua senha.",
+    });
+    
+    // Close the dialog and clear the email field
+    setShowResetDialog(false);
+    setResetEmail('');
   };
 
   return (
@@ -139,6 +172,18 @@ const Login = () => {
                   className="pl-10"
                 />
               </div>
+              {isLogin && (
+                <div className="flex justify-end">
+                  <Button 
+                    type="button" 
+                    variant="link" 
+                    className="p-0 h-auto text-pace-blue text-xs"
+                    onClick={() => setShowResetDialog(true)}
+                  >
+                    Esqueceu a senha?
+                  </Button>
+                </div>
+              )}
             </div>
             
             <Button type="submit" className="w-full bg-pace-blue hover:bg-pace-blue/90">
@@ -213,6 +258,48 @@ const Login = () => {
           </Button>
         </CardFooter>
       </Card>
+
+      {/* Dialog de Esqueci a Senha */}
+      <Dialog open={showResetDialog} onOpenChange={setShowResetDialog}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle>Recuperar senha</DialogTitle>
+            <DialogDescription>
+              Insira seu e-mail para receber um link de redefinição de senha.
+            </DialogDescription>
+          </DialogHeader>
+          <form onSubmit={handleResetPassword}>
+            <div className="space-y-4 py-4">
+              <div className="space-y-2">
+                <label htmlFor="resetEmail" className="text-sm font-medium">
+                  E-mail
+                </label>
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-slate-400">
+                    <Mail size={18} />
+                  </div>
+                  <Input
+                    id="resetEmail"
+                    type="email"
+                    placeholder="seu@email.com"
+                    value={resetEmail}
+                    onChange={(e) => setResetEmail(e.target.value)}
+                    className="pl-10"
+                  />
+                </div>
+              </div>
+            </div>
+            <DialogFooter>
+              <Button variant="outline" type="button" onClick={() => setShowResetDialog(false)}>
+                Cancelar
+              </Button>
+              <Button type="submit" className="bg-pace-blue hover:bg-pace-blue/90">
+                Enviar link
+              </Button>
+            </DialogFooter>
+          </form>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
